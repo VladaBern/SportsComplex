@@ -1,15 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SportsComplex.Middlewares;
+using SportsComplex.Models;
+using SportsComplex.Validators;
 
 namespace SportsComplex
 {
@@ -27,12 +23,18 @@ namespace SportsComplex
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<SportsComplexDbContext>(options => options.UseSqlServer(connection));
+
             services.AddControllers();
+
+            services.AddTransient<IValidator<Discipline>, DisciplineValidator>();
+
+            services.AddTransient<IValidator<int>, IdValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ExceptionHandlerMidleware>();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
