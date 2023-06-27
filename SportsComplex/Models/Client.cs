@@ -9,5 +9,6 @@ namespace SportsComplex.Models
         public string Surname { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Coach Coach { get; set; }
+        public int? CoachId { get; set; }
     }
 }

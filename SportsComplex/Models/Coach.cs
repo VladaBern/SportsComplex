@@ -8,6 +8,7 @@ namespace SportsComplex.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public Discipline Discipline { get; set; }
+        public int DisciplineId { get; set; }
         public IEnumerable<Client> Clients { get; set; }
     }
 }
