@@ -10,9 +10,9 @@ namespace SportsComplex.Controllers
     [Route("api/[controller]")]
     public class ClientController : Controller
     {
-        private SportsComplexDbContext context;
-        private IValidator<int> idValidator;
-        private IValidator<Client> clientValidator;
+        private readonly SportsComplexDbContext context;
+        private readonly IValidator<int> idValidator;
+        private readonly IValidator<Client> clientValidator;
 
         public ClientController(SportsComplexDbContext context, IValidator<int> idValidator, IValidator<Client> clientValidator)
         {

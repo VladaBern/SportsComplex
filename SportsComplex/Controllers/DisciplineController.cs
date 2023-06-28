@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportsComplex.Exceptions;
 using SportsComplex.Models;
-using SportsComplex.Responses;
 using SportsComplex.Validators;
 using System;
 using System.Linq;
@@ -12,9 +10,9 @@ namespace SportsComplex.Controllers
     [Route("api/[controller]")]
     public class DisciplineController : Controller
     {
-        private SportsComplexDbContext context;
-        private IValidator<Discipline> disciplineValidator;
-        private IValidator<int> idValidator;
+        private readonly SportsComplexDbContext context;
+        private readonly IValidator<Discipline> disciplineValidator;
+        private readonly IValidator<int> idValidator;
 
         public DisciplineController(SportsComplexDbContext context, IValidator<Discipline> disciplineValidator, IValidator<int> idValidator)
         {
