@@ -26,13 +26,13 @@ namespace SportsComplex
 
             services.AddControllers();
 
-            services.AddTransient<IValidator<Discipline>, DisciplineValidator>();
+            services.AddSingleton<IValidator<Discipline>, DisciplineValidator>();
 
             services.AddTransient<IValidator<Coach>, CoachValidator>();
 
             services.AddTransient<IValidator<Client>, ClientValidator>();
 
-            services.AddTransient<IValidator<int>, IdValidator>();
+            services.AddSingleton<IValidator<int>, IdValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
