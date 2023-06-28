@@ -28,6 +28,8 @@ namespace SportsComplex
 
             services.AddTransient<IValidator<Discipline>, DisciplineValidator>();
 
+            services.AddTransient<IValidator<Coach>, CoachValidator>();
+
             services.AddTransient<IValidator<int>, IdValidator>();
         }
 
