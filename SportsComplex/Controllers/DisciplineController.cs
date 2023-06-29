@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SportsComplex.Models;
 using SportsComplex.Validators;
 using System;
@@ -29,17 +30,30 @@ namespace SportsComplex.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetList()
+        public IActionResult GetList(bool includeRelation)
         {
-            return Ok(context.Disciplines.ToList());
+            var result = context.Disciplines.AsQueryable();
+
+            if (includeRelation)
+            {
+                result = result.Include(x => x.Coaches);
+            }
+            return Ok(result.ToList());
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(int id, bool includeRelation)
         {
             idValidator.Validate(id);
 
-            var discipline = context.Disciplines.FirstOrDefault(x => x.Id == id);
+            var query = context.Disciplines.AsQueryable();
+
+            if (includeRelation)
+            {
+                query = query.Include(x => x.Coaches);
+            }
+
+            var discipline = query.FirstOrDefault(x => x.Id == id);
 
             if (discipline == null)
                 return NotFound();

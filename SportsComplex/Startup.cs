@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using SportsComplex.Middlewares;
 using SportsComplex.Models;
 using SportsComplex.Validators;
@@ -24,7 +25,11 @@ namespace SportsComplex
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<SportsComplexDbContext>(options => options.UseSqlServer(connection));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(
+                options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
 
             services.AddSingleton<IValidator<Discipline>, DisciplineValidator>();
 
